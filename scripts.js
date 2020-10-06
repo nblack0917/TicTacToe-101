@@ -92,7 +92,6 @@ const checkForTie = () => {
       console.log(board[i][x])
       if (board[i][x] == "") {
         tie = false;
-        // break;
         console.log(board[i][x], i, x)
       }
     }
