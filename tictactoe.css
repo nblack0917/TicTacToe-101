@@ -1,6 +1,10 @@
 .jumbotron {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: 5% auto;
-  margin-left: 43%;
+  width: 50%;
+  text-align: center;
 }
 
 td {

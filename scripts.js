@@ -8,6 +8,7 @@
 
 // The variable will change from X to O based on what player turn it is. We need to hold this so we can place an X or O on the board when they're clicked.
 let currentMarker = 'X'
+let board = [["","",""], ["","",""], ["","",""]]
 
 
 
@@ -26,16 +27,6 @@ const handleClick = (element) => {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 // this function places the "currentMarker" inside the HTML element that was clicked and calls the "changeMarker" function.
 const addMarker = (id) => {
 
@@ -50,36 +41,23 @@ const addMarker = (id) => {
   // .getElementById(id)
   // document
   // .innerHTML 
+  const row = parseInt(id.charAt(0));
+  const column = parseInt(id.charAt(2));
 
-  changeMarker()
+
+  board[row][column] = currentMarker;
+
+  checkForWin();
 }
-
-
-
-
-
-
-
-
-
 
 // This "changeMarker" function changes "X" to "O" in the "currentMarker" variable or "O" to "X"
 const changeMarker = () => {
   if(currentMarker === "X"){
     currentMarker = "O"
-  } else {
+    } else {
     currentMarker = "X"
   }
 }
-
-
-
-
-
-
-
-
-
 
 // This "resetBoard" function is called when the user clicks on the "Restart" button.
 const resetBoard = () => {
@@ -102,5 +80,75 @@ const resetBoard = () => {
 
     // sets the innerHTML to null to replace the "X" or "O"
     squares[i].innerHTML = null
+    document.getElementById('winner').innerHTML = null
+    board = [["","",""], ["","",""], ["","",""]]
   }  
 }
+
+const checkForWin = () => {
+  let winner = document.getElementById('winner');
+  if(horizontalWin() || verticalWin() || diagonalWin()) {
+    window.alert(`Player ${currentMarker} won!`)
+  } else {
+    changeMarker()
+  }
+}
+
+const horizontalWin = () => {
+  if(board[0][0] == currentMarker && board[0][1] == currentMarker && board[0][2] == currentMarker) {
+    winner.innerHTML = currentMarker + " wins in first row"
+    return true
+  } else if (board[1][0] == currentMarker && board[1][1] == currentMarker && board[1][2] == currentMarker){
+    winner.innerHTML = currentMarker + " wins in second row"
+    return true
+  } else if (board[2][0] == currentMarker && board[2][1] == currentMarker && board[2][2] == currentMarker){
+    winner.innerHTML = currentMarker + " wins in third row"
+    return true
+  }
+}
+
+const verticalWin = () => {
+  if (board[0][0] == currentMarker && board[1][0] == currentMarker && board[2][0] == currentMarker){
+    winner.innerHTML = currentMarker + " wins in first column"
+    return true
+  } else if (board[0][1] == currentMarker && board[1][1] == currentMarker && board[2][1] == currentMarker){
+    winner.innerHTML = currentMarker + " wins in second column"
+    return true
+  } else if (board[0][2] == currentMarker && board[1][2] == currentMarker && board[2][2] == currentMarker){
+    winner.innerHTML = currentMarker + " wins in third column"
+    return true
+  }
+}
+
+const diagonalWin = () => {
+  if (board[0][0] == currentMarker && board[1][1] == currentMarker && board[2][2] == currentMarker){
+    winner.innerHTML = currentMarker + " wins in right diagnal"
+    return true
+  } else if (board[0][2] == currentMarker && board[1][1] == currentMarker && board[2][0] == currentMarker){
+    winner.innerHTML = currentMarker + " wins in left diagnal"
+    return true
+  }
+}
+
+// First run at my own checkForWin
+
+// const checkForWin = () => {
+//   console.log("checking for win");
+//   if(board[0][0] == currentMarker && board[0][1] == currentMarker && board[0][2] == currentMarker) {
+//     console.log(currentMarker + " wins in first row")
+//   } else if (board[1][0] == currentMarker && board[1][1] == currentMarker && board[1][2] == currentMarker){
+//     console.log(currentMarker + " wins in second row")
+//   } else if (board[2][0] == currentMarker && board[2][1] == currentMarker && board[2][2] == currentMarker){
+//     console.log(currentMarker + " wins in third row")
+//   } else if (board[0][0] == currentMarker && board[1][0] == currentMarker && board[2][0] == currentMarker){
+//     console.log(currentMarker + " wins in first column")
+//   } else if (board[0][1] == currentMarker && board[1][1] == currentMarker && board[2][1] == currentMarker){
+//     console.log(currentMarker + " wins in second column")
+//   } else if (board[0][2] == currentMarker && board[1][2] == currentMarker && board[2][2] == currentMarker){
+//     console.log(currentMarker + " wins in third column")
+//   } else if (board[0][0] == currentMarker && board[1][1] == currentMarker && board[2][2] == currentMarker){
+//     console.log(currentMarker + " wins in right diagnal")
+//   } else if (board[0][2] == currentMarker && board[1][1] == currentMarker && board[2][0] == currentMarker){
+//     console.log(currentMarker + " wins in left diagnal")
+// }
+// }
