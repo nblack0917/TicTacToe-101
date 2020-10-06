@@ -85,12 +85,33 @@ const resetBoard = () => {
   }  
 }
 
+const checkForTie = () => {
+  let tie = true;
+  for (let i = 0; i < 3; i++) {
+    for (let x = 0; x < 3; x++) {
+      console.log(board[i][x])
+      if (board[i][x] == "") {
+        tie = false;
+        // break;
+        console.log(board[i][x], i, x)
+      }
+    }
+  } 
+  console.log({tie})
+  if (tie) {
+    window.alert(`It's a Tie!`)
+    winner.innerHTML = "It's a Tie! Try again."
+  }
+}
+
+
 const checkForWin = () => {
   let winner = document.getElementById('winner');
   if(horizontalWin() || verticalWin() || diagonalWin()) {
     window.alert(`Player ${currentMarker} won!`)
   } else {
     changeMarker()
+    checkForTie();
   }
 }
 
